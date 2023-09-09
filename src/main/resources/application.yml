@@ -1,0 +1,7 @@
+logging:
+  level:
+    com.molecoding.nobs: DEBUG
+    io.netty: DEBUG
+netty:
+  port: 9494
+  logging: DEBUG
