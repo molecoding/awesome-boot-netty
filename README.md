@@ -1,5 +1,17 @@
 # awesome-boot-netty
 
+## Start
+
+```shell
+./mvnw clean spring-boot:run
+```
+
+if you need to check memory leak,
+
+```shell
+./mvnw clean spring-boot:run \
+  -Dspring-boot.run.jvmArguments="-Dio.netty.leakDetection.level=PARANOID"
+```
 
 ## Test
 
