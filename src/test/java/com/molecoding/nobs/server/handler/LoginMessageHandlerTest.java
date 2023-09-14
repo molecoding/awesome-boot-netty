@@ -33,9 +33,9 @@ public class LoginMessageHandlerTest {
     EmbeddedChannel embeddedChannel = new EmbeddedChannel(
       new StringDecoder(CharsetUtil.UTF_8),
       new MessageDecoder(),
-      new LoginMessageHandler(this.channelRepository),
-      new MessageEncoder(),
-      new StringEncoder(CharsetUtil.UTF_8)
+      new LoginMessageHandler(this.channelRepository)
+//      new MessageEncoder(),
+//      new StringEncoder(CharsetUtil.UTF_8)
     );
 
     // when
