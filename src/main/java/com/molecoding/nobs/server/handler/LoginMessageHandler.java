@@ -30,7 +30,7 @@ public class LoginMessageHandler extends ChannelInboundHandlerAdapter {
       return;
     }
 
-    log.debug("login message: {}", msg);
+    log.info("login message: {}", msg);
 
     Client client = Client.of(msg.getImei(), ctx.channel());
     client.login(channelRepository, ctx.channel());

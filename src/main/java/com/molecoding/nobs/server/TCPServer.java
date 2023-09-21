@@ -3,10 +3,8 @@ package com.molecoding.nobs.server;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
-import io.netty.util.ResourceLeakDetector;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PreDestroy;
@@ -26,17 +24,20 @@ public class TCPServer {
     try {
       ChannelFuture serverChannelFuture = serverBootstrap.bind(tcpPort).sync();
       log.info("server listening on: {}", tcpPort.getPort());
-      serverChannel = serverChannelFuture.channel().closeFuture().sync().channel();
+      serverChannel = serverChannelFuture.channel();
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
   }
 
   @PreDestroy
-  public void stop() {
+  public void stop() throws InterruptedException {
+    serverChannel.close().sync();
     if (serverChannel != null) {
       serverChannel.close();
-      serverChannel.parent().close();
+      if (serverChannel.parent() != null) {
+        serverChannel.parent().close();
+      }
     }
   }
 }
